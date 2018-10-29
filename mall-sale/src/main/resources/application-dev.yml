@@ -1,0 +1,55 @@
+server:
+  port: 8002
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.94.159.51:3306/sale_order?useSSL=false&&characterEncoding=utf-8
+    username: root
+    password: 1qaz@wsx?Z
+    hikari:
+      # 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒以上
+      maxLifetime: 1765000
+      # 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
+      maximumPoolSize: 15
+      # 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟
+      idle-timeout: 600000
+      # 等待连接池分配连接的最大时长（毫秒），超过这个时长还没可用的连接则发生SQLException， 缺省:30秒
+      connection-timeout: 60000
+      # 设定连接校验的超时时间
+      validation-timeout: 5000
+      # 指定连接数据库的超时时间
+      login-timeout: 5
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://47.94.159.51:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+mybatis:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.sy.mall.common.dto,com.sy.mall.sale.entity
+
+# 开启clientFallback降级
+feign:
+  hystrix:
+    enabled: true
+
+# hystrix的熔断超时设置，大于ribbon的超时设置，让ribbon能够重试
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 8000
+
+#请求处理的超时时间
+ribbon.ReadTimeout: 5000
+#请求连接的超时时间
+ribbon.ConnectTimeout: 5000
