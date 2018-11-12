@@ -10,4 +10,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface TestMapper extends BaseMapper<Test>{
+    /**
+     * test
+     * @param name
+     * @return
+     */
+    Integer getIdByName(String name);
 }

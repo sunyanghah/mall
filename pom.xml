@@ -14,6 +14,9 @@
         <module>mall-product</module>
         <module>mall-common</module>
         <module>mall-zuul</module>
+        <module>mall-security</module>
+        <module>mall-oauth2</module>
+        <module>mall-gateway</module>
     </modules>
 
     <properties>

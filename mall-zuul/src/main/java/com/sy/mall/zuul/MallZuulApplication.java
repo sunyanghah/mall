@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
  * Created by dell on 2018/10/27.
  * @author dell
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.sy.mall")
 @EnableZuulProxy
 public class MallZuulApplication {
     public static void main(String[] args){

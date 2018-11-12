@@ -31,4 +31,9 @@ public class TestController {
         log.info("---------------{}--------------",sdf.format(new Date()));
         return rp;
     }
+
+    @GetMapping("/auth")
+    public RP auth() throws Exception{
+        return RP.buildSuccess("this is message","this is data");
+    }
 }
