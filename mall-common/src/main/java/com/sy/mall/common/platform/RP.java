@@ -1,7 +1,6 @@
 package com.sy.mall.common.platform;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 
@@ -9,10 +8,8 @@ import java.io.Serializable;
  * Created by dell on 2018/10/27.
  * @author dell
  */
-@JsonIgnoreProperties(
-        ignoreUnknown = true
-)
 public class RP<T> implements Serializable {
+
     private static final long serialVersionUID = 1L;
     public static final int SUCCESS = 0;
     public static final int FAIL = 1;

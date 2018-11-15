@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -27,27 +28,39 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new CustomUserService();
     }
 
+    @Bean
+    CustomClientService customClientService(){
+        return new CustomClientService();
+    }
+
+    /**
+     * ClientDetailsServiceConfigurer：用来配置客户端详情服务（ClientDetailsService），
+     * 客户端详情信息在这里进行初始化，你能够把客户端详情信息写死在这里或者是通过数据库来存储调取详情信息
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //使用内存存储
-        clients.inMemory()
-                //分配客户端账号
-                .withClient("client")
-                .secret("client-secret")
-                //支持的授权类型
-                .authorizedGrantTypes("refresh_token", "password")
-                .scopes("server")
-                //token有效时长
-                .accessTokenValiditySeconds(1200)
-                //refreshToken有效时长
-                .refreshTokenValiditySeconds(50000);
+        clients.withClientDetails(customClientService());
+//        //使用内存存储
+//        clients.inMemory()
+//                //分配客户端账号
+//                .withClient("client")
+//                .secret("client-secret")
+//                //支持的授权类型
+//                .authorizedGrantTypes("refresh_token", "password")
+//                .scopes("server")
+//                //token有效时长
+//                .accessTokenValiditySeconds(1200)
+//                //refreshToken有效时长
+//                .refreshTokenValiditySeconds(50000);
     }
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         //设置签名密钥
-        jwtAccessTokenConverter.setSigningKey("demo");
+        jwtAccessTokenConverter.setSigningKey("1qaz@wsx?Z");
         return jwtAccessTokenConverter;
     }
 
@@ -57,6 +70,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
 
+    /**
+     * AuthorizationServerEndpointsConfigurer：用来配置授权（authorization）以及令牌（token）的访问端点和令牌服务(token services)。
+     * @param endpoints
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(jwtTokenStore())
@@ -67,10 +85,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .userDetailsService(customUserService());
     }
 
+    /**
+     * AuthorizationServerSecurityConfigurer：用来配置令牌端点(Token Endpoint)的安全约束.
+     * @param security
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.allowFormAuthenticationForClients()
+                // 开启/oauth/token_key验证端口无权限访问
                 .tokenKeyAccess("permitAll()")
+                // 开启/oauth/check_token验证端口认证权限访问
                 .checkTokenAccess("isAuthenticated()");
     }
 }

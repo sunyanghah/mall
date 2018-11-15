@@ -1,6 +1,8 @@
 package com.sy.mall.product.web;
 
 import com.sy.mall.common.platform.RP;
+import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,8 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DemoController {
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/demo/test")
     public RP test() throws Exception{
-        return RP.buildSuccess("this is message","this is data");
+        return RP.buildSuccess("this is demo message","this is demo data");
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
+    @GetMapping("/demo/test2")
+    public RP test2() throws Exception{
+        return RP.buildSuccess("this is test2 message","this is test2 data");
     }
 }

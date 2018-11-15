@@ -1,7 +1,6 @@
 package com.sy.mall.zuul.security;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
@@ -9,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
  * @author dell
  */
 @Data
-@NoArgsConstructor
 public class GrantedAuthorityImpl implements GrantedAuthority {
 
     private String authority;

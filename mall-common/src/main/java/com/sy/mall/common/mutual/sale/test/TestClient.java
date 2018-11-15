@@ -1,7 +1,7 @@
 package com.sy.mall.common.mutual.sale.test;
 
 import com.sy.mall.common.platform.RP;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**

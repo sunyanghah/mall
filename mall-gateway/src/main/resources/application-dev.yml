@@ -74,19 +74,3 @@ zuul:
     mall-product: /demo/**
     mall-oauth2: /auth/**
   sensitive-headers:
-
-management:
-  security:
-    enabled: false
-
-security:
-  oauth2:
-    client:
-      clientId: client
-      clientSecret: client-secret
-    resource:
-      token-info-uri: http://localhost:8010/oauth/check_token
-      prefer-token-info: true
-      jwt:
-        key-uri: http://localhost:8010/oauth/token_key
-  sessions: stateless

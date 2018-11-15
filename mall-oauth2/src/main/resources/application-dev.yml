@@ -68,12 +68,3 @@ ribbon.ReadTimeout: 5000
 #请求连接的超时时间
 ribbon.ConnectTimeout: 5000
 
-
-security:
-  oauth2:
-    resource:
-      filter-order: 3
-
-management:
-  security:
-    enabled: false
