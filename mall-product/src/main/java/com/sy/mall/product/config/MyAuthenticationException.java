@@ -1,11 +1,8 @@
 package com.sy.mall.product.config;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.support.jaxrs.FastJsonProvider;
 import com.sy.mall.common.platform.RP;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.servlet.ServletException;

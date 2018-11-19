@@ -1,4 +1,4 @@
-package com.sy.mall.oauth2.config;
+package com.sy.mall.redis.oauth2.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

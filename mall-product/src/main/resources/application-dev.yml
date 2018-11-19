@@ -76,7 +76,7 @@ security:
       clientId: client
       clientSecret: client-secret
     resource:
-      token-info-uri: http://localhost:8010/oauth/check_token
-      prefer-token-info: true
-      jwt:
-        key-uri: http://localhost:8010/oauth/token_key
+      token-info-uri: http://localhost:8033/oauth/check_token
+#      prefer-token-info: true
+#      jwt:
+#        key-uri: http://localhost:8033/oauth/token_key

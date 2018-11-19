@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.mall.redis.oauth2.resources.mapper.ResourcesMapper">
+
+    <select id="getResourceListByRole" parameterType="list" resultType="string">
+
+        SELECT
+        ss.url
+        FROM
+        sys_role sr
+        INNER JOIN
+        sys_role_resources srr
+        ON
+        sr.id = srr.role_id
+        INNER JOIN
+        sys_resources ss
+        ON
+        ss.id = srr.resources_id
+        WHERE
+        sr.name in (
+        <foreach collection="list" separator="," item="roleName">
+            #{roleName}
+        </foreach>
+        )
+    </select>
+
+    <resultMap id="getAllResourceMap" type="OutResourcesDto">
+        <id column="roleName" property="roleName"></id>
+        <collection property="resourceList" ofType="string">
+            <id column="url"></id>
+        </collection>
+    </resultMap>
+
+    <select id="getAllResource" resultMap="getAllResourceMap">
+        SELECT
+        sr.name as roleName,
+        ss.url
+        FROM
+        sys_role sr
+        INNER JOIN
+        sys_role_resources srr
+        ON
+        sr.id = srr.role_id
+        RIGHT JOIN
+        sys_resources ss
+        ON
+        ss.id = srr.resources_id
+    </select>
+
+</mapper>
