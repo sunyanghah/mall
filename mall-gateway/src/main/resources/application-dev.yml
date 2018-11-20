@@ -28,6 +28,7 @@ spring:
       # 指定连接数据库的超时时间
       login-timeout: 5
   cloud:
+    # sping cloud gateway 网关配置
     gateway:
       routes:
         - uri: lb://mall-redis-oauth2/
@@ -41,6 +42,19 @@ spring:
             - Path=/demo/**
           filters:
             - StripPrefix=1
+
+        - uri: lb://mall-sale/
+          predicates:
+            - Path=/sale/**
+          filters:
+            - StripPrefix=1
+
+      httpclient:
+        # 链接超时时间
+        connect-timeout: 3000
+        # 响应超时时间
+        response-timeout: 5000
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   typeAliasesPackage: com.sy.mall.common.dto,com.sy.mall.gateway.entity
@@ -63,7 +77,7 @@ mybatis-plus:
 # 开启clientFallback降级
 feign:
   hystrix:
-    enabled: true
+    enabled: false
 
 # hystrix的熔断超时设置，大于ribbon的超时设置，让ribbon能够重试
 hystrix:
@@ -74,12 +88,12 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 8000
+            timeoutInMilliseconds: 800
 
 #请求处理的超时时间
 ribbon.ReadTimeout: 5000
 #请求连接的超时时间
-ribbon.ConnectTimeout: 5000
+ribbon.ConnectTimeout: 500
 
 #zuul:
 #  ignoredServices: '*'

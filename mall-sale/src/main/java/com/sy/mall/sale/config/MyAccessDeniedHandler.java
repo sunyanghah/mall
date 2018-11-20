@@ -1,4 +1,4 @@
-package com.sy.mall.product.config;
+package com.sy.mall.sale.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sy.mall.common.platform.RP;

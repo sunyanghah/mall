@@ -68,3 +68,12 @@ hystrix:
 ribbon.ReadTimeout: 5000
 #请求连接的超时时间
 ribbon.ConnectTimeout: 5000
+
+
+security:
+  oauth2:
+    client:
+      clientId: client
+      clientSecret: client-secret
+    resource:
+      token-info-uri: http://localhost:8033/oauth/check_token

@@ -1,11 +1,15 @@
 package com.sy.mall.redis.oauth2.config;
 
+import com.alibaba.fastjson.JSON;
 import com.sy.mall.redis.oauth2.entity.SysUser;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dell on 2018/10/31.
@@ -17,6 +21,7 @@ public class CustomUserDetails implements UserDetails {
     private SysUser sysUser;
 
     private Collection<? extends GrantedAuthority> authorities;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,7 +35,14 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return sysUser.getUsername();
+        return getPrincipal();
+    }
+
+    private String getPrincipal(){
+        Map<String,Object> principalMap = new HashMap();
+        principalMap.put("userId",sysUser.getId());
+        principalMap.put("username",sysUser.getUsername());
+        return JSON.toJSONString(principalMap);
     }
 
     @Override
